@@ -1,19 +1,25 @@
 #include "shell.h"
 /**
 * exec_toks - function that checks if a command is builtin or not
-* @argv: commands and its flags
+* @tokens: commands and its flags
 * Return: 1 on success, 0 on failure
 */
-char exec_toks(char **argv)
+char exec_toks(char **tokens)
 {
 	/* check if a command is builtin*/
 	int inbuilt_cmd = chk_inbuilt(tokens);
+	int flag = 0;
 
 	if (inbuilt_cmd != -1)
 	{
 		handle_builtin_cmd(inbuilt_cmd);
 		free_array(tokens);
-		continue;
+		flag = 1;
+	}
+	else
+	{
+		free(toens[0]);
+		tokens[0] = NULL;
 	}
 	/* check if the executable file exists in PATH*/
 	char *fpath = NULL;
@@ -25,7 +31,7 @@ char exec_toks(char **argv)
 		{
 			perrors("Error(file status)");
 			free_array(tokens);
-			continue
+			return (0);
 		}
 		else
 		{

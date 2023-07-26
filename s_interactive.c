@@ -9,13 +9,12 @@
 void usr_interactive_sh(void)
 {
 	char *strg;
-	size_t nbybes = 0;
-	ssize_t n_chr;
 	char **tokens;
+	int status = 1;
 
-	while (1)
+	while ((status = 1))
 	{
-		strg = rd_strg();
+		strg = rd_cmd();
 		tokens = strg_split(strg);
 		if (tokens == NULL)
 		{
@@ -23,9 +22,8 @@ void usr_interactive_sh(void)
 			free(strg);
 			exit(EXIT_FAILURE);
 		}
-		status = exec_args(tokens);
+		status = exec_toks(tokens);
 		free(tokens);
 	}
-	free(strg)
-
+	free(strg);
 }

@@ -9,17 +9,16 @@ char rd_cmd(void)
 	size_t nbytes = 0;
 	ssize_t n_chr;
 
-	n_chr = getline(&strg, &nbytes, status);
+	n_chr = getline(&strg, &nbytes, stdin);
 	if (n_chr == -1)
 	{
 		perror("Error: getline failed");
 		free(strg);
 		exit(EXIT_FAILURE);
 	}
-	if (n_chr == 1 && strg[0] == '\n')
+	if (n_chr > 0 && strg[n_chr - 1] == '\n')
 	{
-		continue;
+		strg[n_chr - 1] = '\0';
 	}
-	strg[n_chr - 1] = '\0';
 	return (strg);
 }

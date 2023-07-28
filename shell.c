@@ -1,9 +1,9 @@
 #include "shell.h"
 /**
-* main - This is a shell program that checks if command is from user 
-* terminal or from other process
-* Return: 0 on success always
-*/
+ * main - This is a shell program that checks if the command is from the user
+ * terminal or from another process.
+ * Return: 0 on success always.
+ */
 int main(void)
 {
 	char prompt[] = "#cisfunc$ ";

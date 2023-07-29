@@ -7,9 +7,10 @@
  * strg_split - This function splits a string into
  * individual words based on a delimiter.
  * @str: The input string to be split
+ * @count: number of argument tokens
  * Return: An array of strings (words)
  */
-char **strg_split(char *str)
+char **strg_split(char *str, char *delim, size_t *count)
 {
 	char **args_arr;
 	int arg_count = 0, i;

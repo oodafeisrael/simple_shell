@@ -11,11 +11,13 @@ char exec_toks(char **tokens, size_t argc)
 	/* check if a command is builtin*/
 	int inbuilt_cmd = chk_inbuilt(tokens, nbytes);
 	int flag = 0;
+	char *f_path = NULL;
+	struct stat status;
 
 	if (inbuilt_cmd != -1)
 	{
-		handle_builtin(inbuilt_cmd);
-		free_array(tokens);
+		handle_builtin(tokens, inbuilt_cmd);
+		free_array(tokens, argc);
 		flag = 1;
 	}
 	else
@@ -24,15 +26,14 @@ char exec_toks(char **tokens, size_t argc)
 		tokens[0] = NULL;
 	}
 	/* check if the executable file exists in PATH*/
-	char *fpath = NULL;
 
-	if (!file_status_chk(tokens[0], nbytes))
+	if (!file_status_chk(tokens[0], &status))
 	{
-		f_path = file_path_chk(tokens[0], &status);
+		f_path = file_path_concat(tokens[0], &status);
 		if (!f_path)
 		{
 			perror("Error(file status)");
-			free_array(tokens);
+			free_array(tokens, argc);
 			return (0);
 		}
 		else
@@ -42,6 +43,6 @@ char exec_toks(char **tokens, size_t argc)
 		}
 	}
 	exec_cmd(tokens);
-	free_array(tokens);
+	free_array(tokens, argc);
 	return (1);
 }

@@ -66,7 +66,7 @@ void chk_env(char **env_args)
 */
 void _printenv(void)
 {
-	char **environ;
+	char **environ = 0;
 	int x;
 	size_t len;
 

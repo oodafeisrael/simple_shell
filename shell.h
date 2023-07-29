@@ -18,9 +18,9 @@ int execve(const char *pathname, char *const argv[], char *const envp[]);
 void displayPrompt(const char *prompt);
 /*size_t rd_cmd(char **strg, size_t *nbytes);*/
 void removeTrailingNewline(char *strg);
-char **strg_split(char *strg);
+char **strg_split(char *strg, char *delim, size_t *count);
 int chk_inbuilt(char **args_arr, size_t argc);
-int exec_cmd(char *strg);
+int exec_cmd(char **strg);
 void chk_exit(char **args_arr, size_t argc);
 bool file_status_chk(char *pathname, struct stat *statbuf);
 void chk_env(char **args_arr);
@@ -36,5 +36,5 @@ void handle_exit(char **argv, size_t argc);
 void handle_env(char **argv, size_t argc);
 void free_array(char **array, int size);
 bool file_status_chk(char *path_name, struct stat *status);
-char *file_path_concat(char *filename, struct stat status);
+char *file_path_concat(char *filename, struct stat *status);
 #endif

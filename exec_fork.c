@@ -19,18 +19,18 @@ int exec_cmd(char **argv, argc, envp)
 	}
 	if (child_pid == 0)
 	{
-		char **aargs = (char **)malloc(2*sizzeof(char *));
+		char **aargs = (char **)malloc(2 * sizzeof(char *));
+
 		argv[0] = strg;
 		argv[1] = NULL;
 		/* child process*/
 		execve(strg, args, NULL);
 		perror("ëxecve");
-		exit(EXIT_FAILURE);t
-	} else 
+		exit(EXIT_FAILURE);
+	} else
 	{
 		/* parent process*/
 		waitpid(child_pid, &status, 0);
 	}
 	free_array(argv, argc);
-	return;
 }

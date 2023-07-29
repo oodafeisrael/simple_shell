@@ -9,10 +9,13 @@ void usr_no_interactive_sh(void)
 	char *strg;
 	char **tokens;
 	int status = 1;
+	size_t nbytes = 0;
 
-	while ((status = 1))
+	while (status == 1)
 	{
 		strg = rd_strm();
+		if (strg == NULL)
+			break;
 		tokens = strg_split(strg);
 		if (tokens == NULL)
 		{
@@ -20,8 +23,8 @@ void usr_no_interactive_sh(void)
 			free(strg);
 			exit(EXIT_FAILURE);
 		}
-		status = exec_toks(tokens);
+		status = exec_toks(tokens, nbytes);
 		free(tokens);
+		free(strg);
 	}
-	free(strg);
 }

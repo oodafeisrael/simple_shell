@@ -26,9 +26,15 @@ bool file_status_chk(char *pathname, struct stat *statbuf);
 void chk_env(char **args_arr);
 int _atoi(char *strg);
 void _printenv(void);
-char exec_toks(char **tokens);
-char *rd_strm(void);
+char exec_toks(char **tokens, size_t argc);
+char *rd_strm(const char *file_path);
 void usr_interactive_sh(void);
-char rd_cmd(void);
+char *rd_cmd(void);
 void usr_no_interactive_sh(void);
+bool handle_builtin(char **argv, size_t argc);
+void handle_exit(char **argv, size_t argc);
+void handle_env(char **argv, size_t argc);
+void free_array(char **array, int size);
+bool file_status_chk(char *path_name, struct stat *status);
+char *file_path_concat(char *filename, struct stat status);
 #endif

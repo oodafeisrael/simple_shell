@@ -3,29 +3,30 @@
 * rd_strm - function to read string from stdin stream
 * Return: pointer to the read strg
 */
-char *rd_strm(void)
+char *rd_strm(const char *file_path)
 {
-	char *strg;
+	char *strg = NULL;
 	size_t nbytes = 0;
 	ssize_t n_chr;
-	char **tokens;
-	int fd;
+	int fd = STDIN_FILENO;
 
-	fd = open(file_path, O_RDONLY);
+	/*fd = open(file_path, O_RDONLY);*/
+	n_chr = read(fd, &strg, nbytes);
 	if (fd == -1)
 	{
 		perror("Error(open failed)");
 		exit(EXIT_FAILURE);
 	}
-	while ((n_chr = getline(&strg, &nbytes, fd)) != -1)
+	/*n_chr = getline(&strg, &nbytes, fd);*/
+	/* check for EOF */
+	else if (n_chr == 0)
 	{
-		if (n_chr == 1 && strg[0] == '\n')
-		{
-			continue;
-		}
+		free(strg);
+		return (NULL);
+	}
+	/* remove trailling newline character*/
+	if (n_chr > 0 && strg[n_chr - 1] == '\n')
 		strg[n_chr - 1] = '\0';
 		return (strg);
-	}
-	close(fd);
+	return (strg);
 }
-

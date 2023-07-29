@@ -3,7 +3,7 @@
 * rd_cmd - functionto read user input command from terminal or prompt
 * Return: pointer to a string from the command argument
 */
-char rd_cmd(void)
+char *rd_cmd(void)
 {
 	char *strg = NULL;
 	size_t nbytes = 0;
